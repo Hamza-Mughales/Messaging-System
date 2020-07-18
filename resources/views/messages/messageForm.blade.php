@@ -12,9 +12,12 @@
 				<span class="contact1-form-title">
 					Send Message
 				</span>
-
 				<div class="wrap-input1 validate-input" >
-					<input class="input1" type="text" name="sendTo" placeholder="Send To" value="{{old('sendTo')}}" required>
+                <select class="form-control m-bot15 all_conts" name="send_to">
+                        @foreach($all_contacts as $cont)
+                            <option value="{{ $cont->id }}" >{{ $cont->email }}</option>
+                        @endforeach
+                </select>
                     <span class="shadow-input1"></span>
                     <span class="error">{{$errors->first('sendTo')}}</span>
 				</div>
@@ -44,4 +47,3 @@
 	</div>
 
 @endsection
-

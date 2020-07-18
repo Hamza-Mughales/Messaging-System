@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Messages as Message;
+use App\Contacts as Contact;
 use Illuminate\Support\Facades\Redirect;
 
 class messageController extends Controller
 {
     // __construct
-    public function __construct(Message $message)
+    public function __construct(Message $message, Contact $contact)
     {
         $this->message = $message;
+        $this->contact = $contact;
     }
 
 
@@ -32,21 +34,28 @@ class messageController extends Controller
     /****************************************** */
 
     public function new_message(Request $request, Message $message) {
-        $data = [];
-        $data['send_to'] = $request->input('sendTo');
-        $data['title'] = $request->input('subject');
-        $data['content'] = $request->input('message');
-        $data['contact_id'] = session('contact_id');
+
+        // dd($contacts);
 
         if ($request->isMethod('post'))
         {
+
+            $contact_id = session('contact_id');
+            $contact_info = $this->contact->get_contact($contact_id);
+            // dd($contact_info[0]->email);
+            $data = [];
+            $data['send_from'] = $contact_info[0]->email;
+            $data['send_to'] = $request->input('send_to');
+            $data['title'] = $request->input('subject');
+            $data['content'] = $request->input('message');
+            $data['contact_id'] = session('contact_id');
             $this->validate(
                 $request,
                 [
-                    'sendTo' => 'required',
+                    'send_to' => 'required',
                     'subject' => 'required',
                     'message' => 'required'
-                ]
+                    ]
             );
 
             $message->insert($data);
@@ -54,14 +63,15 @@ class messageController extends Controller
             return Redirect('messages');
         }
 
-        $data['modify'] = 0;
-        return view('messages/messageForm', $data);
-    }
+            $all_contacts = Contact::all();
+            $data['all_contacts'] = $all_contacts;
+            return view('messages/messageForm', $data);
+        }
 
 
 
-    /****************************************** */
-    // Show message
+        /****************************************** */
+        // Show message
     /****************************************** */
 
     public function show_message($message_id, Message $message) {

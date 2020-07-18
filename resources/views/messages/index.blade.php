@@ -22,7 +22,7 @@
         <tr data-toggle="tooltip" data-placement="top"  title="Click To Show The Message" class='clickable-row' data-href="{{route('show_message',['message_id' => $msg->id ]) }}">
             <td> {{$msg->id}}</td>
             <td> {{$msg->title}}</td>
-            <td> {{$msg->content}}</td>
+            <td class=" w-50"> {{$msg->content}}</td>
             <td> {{$msg->send_to}}</td>
             <td>
                 <a href="{{ route('delete_message',['msg_id' => $msg->id ]) }}" class="btn btn-danger btn-sm">

@@ -193,6 +193,18 @@ input.input1 {
   border-radius: 25px;
   padding: 0 30px;
 }
+.all_conts{
+    height: 50px;
+    border-radius: 25px;
+    padding: 0 30px;
+    display: block;
+    width: 100%;
+    background: #e6e6e6;
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #666666;
+}
 input.input1 + .shadow-input1 {
   border-radius: 25px;
 }

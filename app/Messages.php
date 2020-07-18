@@ -15,6 +15,7 @@ class Messages extends Model
 
         $messages = DB::table('messages')
             ->where('contact_id', $contatc_id)
+            ->orWhere('send_to', $contatc_id)
             ->get();
         return $messages;
     }
