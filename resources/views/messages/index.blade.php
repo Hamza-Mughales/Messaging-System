@@ -14,6 +14,7 @@
             <th>Title</th>
             <th>Content</th>
             <th>Send To</th>
+            <th></th>
         </tr>
     </thead>
 
